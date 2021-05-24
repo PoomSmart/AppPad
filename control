@@ -1,8 +1,8 @@
 Package: com.ps.apppad
 Name: AppPad
-Depends: mobilesubstrate, preferenceloader, applist, firmware (>= 9.0)
+Depends: mobilesubstrate, preferenceloader, com.opa334.altlist, firmware (>= 9.0)
 Conflicts: com.yourepo.isaact1012.requirefullarm64e, com.matrix.requirefull
-Version: 0.0.1
+Version: 1.0.0
 Architecture: iphoneos-arm
 Description: Full screen, Split and Slideover for every app on iPad.
 Maintainer: PoomSmart

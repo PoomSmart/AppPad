@@ -12,8 +12,8 @@
 
 static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
 	NSDictionary *preferences = Prefs();
-	id value = preferences[[@"AppPad-" stringByAppendingString:bundleIdentifier]];
-	return value ? ![value boolValue] : YES;
+	NSArray <NSString *> *value = preferences[@"AppPad"];
+	return ![value containsObject:bundleIdentifier];
 }
 
 %hook UIApplication
