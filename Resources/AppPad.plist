@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>items</key>
-	<array>
+	<dict>
+		<key>entry</key>
 		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>AppPad</string>
-			<key>footerText</key>
-            <string>© 2021 PoomSmart</string>
-            <key>footerAlignment</key>
-            <integer>1</integer>
-		</dict>
-		<dict>
+			<key>bundle</key>
+			<string>AltList</string>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>detail</key>
 			<string>ATLApplicationListMultiSelectionController</string>
-			<key>defaults</key>
-			<string>com.ps.apppad</string>
 			<key>key</key>
 			<string>AppPad</string>
-			<key>label</key>
-			<string>Applications to Disable</string>
+			<key>defaults</key>
+			<string>com.ps.apppad</string>
 			<key>sections</key>
 			<array>
 				<dict>
@@ -32,13 +21,18 @@
 					<string>Visible</string>
 				</dict>
 			</array>
+			<key>isController</key>
+			<true />
+			<key>overridePrincipalClass</key>
+			<true />
+			<key>label</key>
+			<string>AppPad</string>
 			<key>showIdentifiersAsSubtitle</key>
 			<true />
 			<key>defaultApplicationSwitchValue</key>
-			<false />
+			<true />
 			<key>useSearchBar</key>
 			<true />
 		</dict>
-	</array>
-</dict>
+	</dict>
 </plist>
