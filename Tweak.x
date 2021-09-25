@@ -2,7 +2,6 @@
 
 #import <Foundation/Foundation.h>
 #import <SpringBoard/SBApplication.h>
-#import <AppList/AppList.h>
 #import <theos/IOSMacros.h>
 #import "../PSPrefs/PSPrefs.x"
 
@@ -11,15 +10,15 @@
 @end
 
 static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
-	NSDictionary *preferences = Prefs();
-	NSArray <NSString *> *value = preferences[@"AppPad"];
-	return ![value containsObject:bundleIdentifier];
+    NSDictionary *preferences = Prefs();
+    NSArray <NSString *> *value = preferences[@"AppPad"];
+    return ![value containsObject:bundleIdentifier];
 }
 
 %hook UIApplication
 
 - (BOOL)_shouldBigify {
-	return shouldEnableForBundleIdentifier(NSBundle.mainBundle.bundleIdentifier);
+    return shouldEnableForBundleIdentifier(NSBundle.mainBundle.bundleIdentifier);
 }
 
 %end
@@ -29,15 +28,15 @@ static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
 %hook SBApplicationInfo
 
 - (bool)disableClassicMode {
-	return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? true : %orig;
+    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? true : %orig;
 }
 
 - (bool)wantsFullScreen {
-	return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? false : %orig;
+    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? false : %orig;
 }
 
 - (bool)_supportsApplicationType:(int)type {
-	return %orig(type & 2 && shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 1 : type);
+    return %orig(type & 2 && shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 1 : type);
 }
 
 %end
@@ -45,11 +44,11 @@ static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
 %hook SBApplication
 
 - (bool)_supportsApplicationType:(int)type {
-	return %orig(type & 2 && shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 1 : type);
+    return %orig(type & 2 && shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 1 : type);
 }
 
 - (NSInteger)_defaultClassicMode {
-	return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 0 : %orig;
+    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 0 : %orig;
 }
 
 %end
@@ -57,9 +56,9 @@ static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
 %end
 
 %ctor {
-	if (IN_SPRINGBOARD) {
-		%init(SB);
-	} else {
-		%init;
-	}
+    if (IN_SPRINGBOARD) {
+        %init(SB);
+    } else {
+        %init;
+    }
 }
