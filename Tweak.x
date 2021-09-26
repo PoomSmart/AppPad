@@ -1,13 +1,9 @@
 #define tweakIdentifier @"com.ps.apppad"
 
-#import <Foundation/Foundation.h>
 #import <SpringBoard/SBApplication.h>
+#import <SpringBoard/SBApplicationInfo.h>
 #import <theos/IOSMacros.h>
 #import "../PSPrefs/PSPrefs.x"
-
-@interface SBApplicationInfo : NSObject
-@property (nonatomic, copy, readonly) NSString *bundleIdentifier;
-@end
 
 static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
     NSDictionary *preferences = Prefs();
@@ -27,15 +23,15 @@ static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
 
 %hook SBApplicationInfo
 
-- (bool)disableClassicMode {
-    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? true : %orig;
+- (BOOL)disableClassicMode {
+    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? YES : %orig;
 }
 
-- (bool)wantsFullScreen {
-    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? false : %orig;
+- (BOOL)wantsFullScreen {
+    return shouldEnableForBundleIdentifier(self.bundleIdentifier) ? NO : %orig;
 }
 
-- (bool)_supportsApplicationType:(int)type {
+- (BOOL)_supportsApplicationType:(int)type {
     return %orig(type & 2 && shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 1 : type);
 }
 
@@ -43,7 +39,7 @@ static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
 
 %hook SBApplication
 
-- (bool)_supportsApplicationType:(int)type {
+- (BOOL)_supportsApplicationType:(int)type {
     return %orig(type & 2 && shouldEnableForBundleIdentifier(self.bundleIdentifier) ? 1 : type);
 }
 
