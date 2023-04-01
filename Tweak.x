@@ -3,7 +3,7 @@
 #import <SpringBoard/SBApplication.h>
 #import <SpringBoard/SBApplicationInfo.h>
 #import <theos/IOSMacros.h>
-#import "../PSPrefs/PSPrefs.x"
+#import "../../PSPrefs/PSPrefs.x"
 
 static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
     NSDictionary *preferences = Prefs();
