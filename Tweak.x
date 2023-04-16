@@ -2,15 +2,10 @@
 #import <SpringBoard/SBApplicationInfo.h>
 #import <theos/IOSMacros.h>
 
-#define key CFSTR("AppPad")
-#define domain CFSTR("com.apple.UIKit")
-
 static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
-    const void *value = CFPreferencesCopyAppValue(key, domain);
-    if (value == NULL)
-        value = CFPreferencesCopyValue(key, domain, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-    NSArray <NSString *> *nsValue = (__bridge NSArray <NSString *> *)value;
-    return ![nsValue containsObject:bundleIdentifier];
+    NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.ps.apppad"];
+    NSArray <NSString *> *value = [prefs objectForKey:@"AppPad"];
+    return ![value containsObject:bundleIdentifier];
 }
 
 %hook UIApplication
