@@ -1,14 +1,16 @@
-#define tweakIdentifier @"com.ps.apppad"
-
 #import <SpringBoard/SBApplication.h>
 #import <SpringBoard/SBApplicationInfo.h>
 #import <theos/IOSMacros.h>
-#import "../../PSPrefs/PSPrefs.x"
+
+#define key CFSTR("AppPad")
+#define domain CFSTR("com.apple.UIKit")
 
 static BOOL shouldEnableForBundleIdentifier(NSString *bundleIdentifier) {
-    NSDictionary *preferences = Prefs();
-    NSArray <NSString *> *value = preferences[@"AppPad"];
-    return ![value containsObject:bundleIdentifier];
+    const void *value = CFPreferencesCopyAppValue(key, domain);
+    if (value == NULL)
+        value = CFPreferencesCopyValue(key, domain, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    NSArray <NSString *> *nsValue = (__bridge NSArray <NSString *> *)value;
+    return ![nsValue containsObject:bundleIdentifier];
 }
 
 %hook UIApplication

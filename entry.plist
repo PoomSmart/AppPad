@@ -13,7 +13,7 @@
 			<key>key</key>
 			<string>AppPad</string>
 			<key>defaults</key>
-			<string>com.ps.apppad</string>
+			<string>com.apple.UIKit</string>
 			<key>sections</key>
 			<array>
 				<dict>
